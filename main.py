@@ -53,9 +53,9 @@ def transform_data(df):
 def load_data(df):
     os.makedirs('./output', exist_ok=True)
 
-    js=df.to_json(None, orient='records', lines=True)
-    with open('./output/data.json', 'w') as file:
-         json.dump(js, file, indent=4)
+    js=df.to_json('./output/data.json', orient='records')
+    # with open('./output/data.json', 'w') as file:
+    #     file.write(js)
 
 if __name__ == '__main__':
     df = read_csv('member-data.csv')

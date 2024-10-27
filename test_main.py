@@ -44,19 +44,20 @@ class TestMain(unittest.TestCase):
         main.load_data(self.tranData)
         if os.path.isfile(file_path):
             with open(file_path) as json_file:
-                data = json.load(json_file)
-                print("======data=====")
-                print(data)
-                print(len(data))
-                self.assertEqual(data[0][-1], 'Rebbecca Didio')
+                data = json.loads(json_file.read())
+                self.assertEqual(len(data), 6)
+                self.assertEqual(data[0]["FullName"], 'Rebbecca Didio')
                 self.assertEqual(data[0]['Age'], 53)
                 self.assertEqual(data[0]['Address'], '171 E 24th St, Leith TAS 7315')
-                self.assertEqual(data[0]['Salary'], 4949.2034)
+                self.assertEqual(data[0]['Salary'], '$4,949.20')
                 self.assertEqual(data[0]['SalaryBucket'], 'A')
 
     def tearDown(self):
         if os.path.isfile(file_path):
             os.remove(file_path)
-        # if os.path.isdir('./output'):
-        #     shutil.rmtree('./output')
+        if os.path.isdir('./output'):
+            shutil.rmtree('./output')
         return super().tearDown()
+
+if __name__ == '__main__':
+    unittest.main()
