@@ -78,4 +78,23 @@ volumes:
   ...
 ```
 
-But I think I using file replace mongodb for the test, and it is not have web or restAPI service running in docker, so I do not think it have some meaningful to write additional docker-compose.yaml file.
+But I think I used file replace mongodb for the test, and it is not have web or restAPI service running in docker, so I do not think it have some meaningful to write additional docker-compose.yaml file.
+
+# how to change file to MongoDB:
+
+it can add pymongo library to support MongoDB writing, and then connect MongoDB and get the collection.
+
+```
+from pymongo import MongoClient
+# Connect to MongoDB
+client = MongoClient("mongodb://localhost:27017/")
+db = client["mydatabase"]               # Access the database
+collection = db["mycollection"] 
+```
+
+and then write collection with data like in main.py:
+
+```
+data_dict = df.to_dict(orient="records") # Convert DataFrame to list of dictionaries
+collection.insert_many(data_dict)
+```
